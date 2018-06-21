@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using mcmreporting.Models;
 
 namespace mcmreporting
 {
@@ -32,9 +34,14 @@ namespace mcmreporting
       });
 
 
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddMvc(config =>
+          config.ModelBinderProviders.Insert(0, new Pages.School.CslaModelBinderProvider())
+        ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
       Csla.ApplicationContext.LocalContext["ConnectionString"] = Configuration["mcmreporting:ConnectionString"];
+
+      services.AddDbContext<mcmreportingContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("mcmreportingContext")));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

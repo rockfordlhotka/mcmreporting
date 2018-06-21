@@ -19,7 +19,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        var result = conn.Query<SchoolDal>("select id, school_name AS name from Schools where id=@id;", id);
+        var result = conn.Query<SchoolDal>("select id, school_name AS name from Schools where id=@id;", new { id });
         return result.FirstOrDefault();
       }
     }
@@ -29,7 +29,7 @@ namespace mcmmodels.Dal
       using (var conn = Database.GetConnection())
       {
         conn.Execute("insert into Schools (school_name) values (@name);", new { name = school.Name });
-        var result = conn.Query<SchoolDal>("select id, school_name AS name from Schools where name=@name;", school.Name).FirstOrDefault();
+        var result = conn.Query<SchoolDal>("select id, school_name AS name from Schools where school_name=@name;", new { name = school.Name }).FirstOrDefault();
         return result == null ? -1 : result.Id;
       }
     }
@@ -46,7 +46,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        conn.Execute("delete from Schools where id=@id;", id);
+        conn.Execute("delete from Schools where id=@id;", new { id });
       }
     }
   }
