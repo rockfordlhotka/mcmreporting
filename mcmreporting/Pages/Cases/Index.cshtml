@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.CasesModel
+@{
+    ViewData["Title"] = "Cases";
+}
+
+<h2>Cases</h2>
+
+@foreach (var item in Model.Cases)
+{
+<p>@item.MCMNumber</p>
+}

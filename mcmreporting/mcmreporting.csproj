@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\Cases\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Pages\LawEnforcement\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
