@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.CountiesModel
+@{
+    ViewData["Title"] = "Counties";
+}
+
+<h2>Counties</h2>
+
+@foreach (var item in Model.Counties)
+{
+<p>@item.Name</p>
+}

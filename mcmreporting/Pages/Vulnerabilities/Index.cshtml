@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.VulnerabilitiesModel
+@{
+    ViewData["Title"] = "Vulnerabilities";
+}
+
+<h2>Vulnerabilities</h2>
+
+@foreach (var item in Model.Vulnerabilities)
+{
+<p>@item.Name</p>
+}

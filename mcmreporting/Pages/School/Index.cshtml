@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.SchoolsModel
+@{
+    ViewData["Title"] = "Schools";
+}
+
+<h2>Schools</h2>
+
+@foreach (var item in Model.Schools)
+{
+<p>@item.Name</p>
+}

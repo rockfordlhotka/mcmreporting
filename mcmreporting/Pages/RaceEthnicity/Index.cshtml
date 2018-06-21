@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.RaceEthnicitiesModel
+@{
+    ViewData["Title"] = "Race/Ethnicity";
+}
+
+<h2>Race/Ethnicity</h2>
+
+@foreach (var item in Model.RaceEthnicities)
+{
+<p>@item.Name</p>
+}

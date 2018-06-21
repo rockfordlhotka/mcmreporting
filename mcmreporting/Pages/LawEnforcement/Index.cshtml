@@ -1,0 +1,12 @@
+﻿@page
+@model mcmreporting.Pages.LawEnforcementModel
+@{
+    ViewData["Title"] = "Law Enforcement";
+}
+
+<h2>Law Enforcement Agencies</h2>
+
+@foreach (var item in Model.LawEnforcement)
+{
+<p>@item.Name</p>
+}
