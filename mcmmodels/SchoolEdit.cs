@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Csla;
 
@@ -16,6 +17,7 @@ namespace mcmmodels
     }
 
     public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(c => c.Name);
+    [Required]
     public string Name
     {
       get { return GetProperty(NameProperty); }
