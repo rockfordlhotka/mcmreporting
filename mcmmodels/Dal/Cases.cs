@@ -36,27 +36,35 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        var result = conn.Query<CaseDal>(_selectSql + " where id=@id", id);
+        var result = conn.Query<CaseDal>(_selectSql + " where id=@id", new { id });
         return result.FirstOrDefault();
       }
     }
 
     public int Insert(CaseDal casedata)
     {
+      if (casedata.CountyId <= 0)
+        casedata.CountyId = 177;
+      if (casedata.SchoolId <= 0)
+        casedata.SchoolId = 1;
       using (var conn = Database.GetConnection())
       {
-        var exists = conn.Query<int>("select id from case_data where mcm_number=@number", casedata.MCMNumber).FirstOrDefault();
+        var exists = conn.Query<int>("select id from case_data where mcm_number=@number", new { number = casedata.MCMNumber }).FirstOrDefault();
         if (exists > 0)
           throw new InvalidOperationException($"MCM Number {casedata.MCMNumber} already exists in database");
 
         conn.Execute(_insertSql, casedata);
-        var result = conn.Query<CaseDal>(_selectSql + " where mcm_number=@number;", casedata.MCMNumber).FirstOrDefault();
+        var result = conn.Query<CaseDal>(_selectSql + " where mcm_number=@number;", new { number = casedata.MCMNumber }).FirstOrDefault();
         return result == null ? -1 : result.Id;
       }
     }
 
     public void Update(CaseDal casedata)
     {
+      if (casedata.CountyId <= 0)
+        casedata.CountyId = 177;
+      if (casedata.SchoolId <= 0)
+        casedata.SchoolId = 1;
       using (var conn = Database.GetConnection())
       {
         conn.Execute(_updateSql, casedata);
@@ -67,7 +75,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        conn.Execute("delete from case_data where id=@id;", id);
+        conn.Execute("delete from case_data where id=@id;", new { id });
       }
     }
   }

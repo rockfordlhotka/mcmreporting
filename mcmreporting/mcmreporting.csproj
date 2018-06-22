@@ -18,6 +18,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\Cases\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Cases\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Cases\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Pages\Cases\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Pages\Cases\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

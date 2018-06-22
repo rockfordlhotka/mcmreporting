@@ -1,12 +1,48 @@
 ﻿@page
 @model mcmreporting.Pages.CasesModel
 @{
-    ViewData["Title"] = "Cases";
+  ViewData["Title"] = "Cases";
 }
 
 <h2>Cases</h2>
 
-@foreach (var item in Model.Cases)
-{
-<p>@item.MCMNumber</p>
-}
+<p>
+  <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        MCM Number
+      </th>
+      <th>
+        Intake
+      </th>
+      <th>
+        Status
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model.Cases)
+    {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.MCMNumber)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.IntakeDate)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.CaseStatus)
+      </td>
+      <td>
+        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

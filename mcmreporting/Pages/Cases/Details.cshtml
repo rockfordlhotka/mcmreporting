@@ -1,0 +1,153 @@
+﻿@page
+@model mcmreporting.Pages.Cases.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+  <h4>CaseEdit</h4>
+  <hr />
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.MCMNumber)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.MCMNumber)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.IntakeDate)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.IntakeDate)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.Age)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.Age)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.Gender)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.Gender)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.LastSeen)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.LastSeen)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.ReportedMissing)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.ReportedMissing)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.PeopleServed)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.PeopleServed)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.City)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.City)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.County)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.County)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.School)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.School)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.State)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.State)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.StartCaseType)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.StartCaseType)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.EndCaseType)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.EndCaseType)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.Disposition)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.Disposition)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.CloseDate)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.CloseDate)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.ReferralType)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.ReferralType)
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      @Html.DisplayNameFor(model => model.CaseEdit.CaseStatus)
+    </dt>
+    <dd>
+      @Html.DisplayFor(model => model.CaseEdit.CaseStatus)
+    </dd>
+  </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.CaseEdit.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

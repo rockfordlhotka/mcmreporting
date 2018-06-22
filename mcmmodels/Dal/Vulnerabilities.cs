@@ -19,7 +19,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        var result = conn.Query<VulnerabilityDal>("select id, vulnerability AS name from Vulnerabilities where id=@id;", id);
+        var result = conn.Query<VulnerabilityDal>("select id, vulnerability AS name from Vulnerabilities where id=@id;", new { id });
         return result.FirstOrDefault();
       }
     }
@@ -46,7 +46,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        conn.Execute("delete from Vulnerabilities where id=@id;", id);
+        conn.Execute("delete from Vulnerabilities where id=@id;", new { id });
       }
     }
   }

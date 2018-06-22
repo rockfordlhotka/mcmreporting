@@ -1,0 +1,115 @@
+﻿@page
+@model mcmreporting.Pages.Cases.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>CaseEdit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+      <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="CaseEdit.Id" />
+        <div class="form-group">
+          <label asp-for="CaseEdit.MCMNumber" class="control-label"></label>
+          <input asp-for="CaseEdit.MCMNumber" class="form-control" />
+          <span asp-validation-for="CaseEdit.MCMNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.IntakeDate" class="control-label"></label>
+          <input asp-for="CaseEdit.IntakeDate" class="form-control" />
+          <span asp-validation-for="CaseEdit.IntakeDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.Age" class="control-label"></label>
+          <input asp-for="CaseEdit.Age" class="form-control" />
+          <span asp-validation-for="CaseEdit.Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.Gender" class="control-label"></label>
+          <input asp-for="CaseEdit.Gender" class="form-control" />
+          <span asp-validation-for="CaseEdit.Gender" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.LastSeen" class="control-label"></label>
+          <input asp-for="CaseEdit.LastSeen" class="form-control" />
+          <span asp-validation-for="CaseEdit.LastSeen" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.ReportedMissing" class="control-label"></label>
+          <input asp-for="CaseEdit.ReportedMissing" class="form-control" />
+          <span asp-validation-for="CaseEdit.ReportedMissing" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.PeopleServed" class="control-label"></label>
+          <input asp-for="CaseEdit.PeopleServed" class="form-control" />
+          <span asp-validation-for="CaseEdit.PeopleServed" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.City" class="control-label"></label>
+          <input asp-for="CaseEdit.City" class="form-control" />
+          <span asp-validation-for="CaseEdit.City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.CountyId" class="control-label"></label>
+          <input asp-for="CaseEdit.CountyId" class="form-control" />
+          <span asp-validation-for="CaseEdit.CountyId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.SchoolId" class="control-label"></label>
+          <input asp-for="CaseEdit.SchoolId" class="form-control" />
+          <span asp-validation-for="CaseEdit.SchoolId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.State" class="control-label"></label>
+          <input asp-for="CaseEdit.State" class="form-control" />
+          <span asp-validation-for="CaseEdit.State" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.StartCaseType" class="control-label"></label>
+          <input asp-for="CaseEdit.StartCaseType" class="form-control" />
+          <span asp-validation-for="CaseEdit.StartCaseType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.EndCaseType" class="control-label"></label>
+          <input asp-for="CaseEdit.EndCaseType" class="form-control" />
+          <span asp-validation-for="CaseEdit.EndCaseType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.Disposition" class="control-label"></label>
+          <input asp-for="CaseEdit.Disposition" class="form-control" />
+          <span asp-validation-for="CaseEdit.Disposition" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.CloseDate" class="control-label"></label>
+          <input asp-for="CaseEdit.CloseDate" class="form-control" />
+          <span asp-validation-for="CaseEdit.CloseDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.ReferralType" class="control-label"></label>
+          <input asp-for="CaseEdit.ReferralType" class="form-control" />
+          <span asp-validation-for="CaseEdit.ReferralType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label asp-for="CaseEdit.CaseStatus" class="control-label"></label>
+          <input asp-for="CaseEdit.CaseStatus" class="form-control" />
+          <span asp-validation-for="CaseEdit.CaseStatus" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+      </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
