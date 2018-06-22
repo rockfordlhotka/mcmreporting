@@ -19,7 +19,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        var result = conn.Query<AgencyDal>("select id, agency from law_enforcement where id=@id;", id);
+        var result = conn.Query<AgencyDal>("select id, agency from law_enforcement where id=@id;", new { id });
         return result.FirstOrDefault();
       }
     }
@@ -28,8 +28,8 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        conn.Execute("insert into LawEnforcement (agency) values (@name);", new { name = agency.Agency });
-        var result = conn.Query<AgencyDal>("select id, agency from law_enforcement where name=@name;", agency.Agency).FirstOrDefault();
+        conn.Execute("insert into law_enforcement (agency) values (@name);", new { name = agency.Agency });
+        var result = conn.Query<AgencyDal>("select id, agency from law_enforcement where agency=@name;", new { Name = agency.Agency }).FirstOrDefault();
         return result == null ? -1 : result.Id;
       }
     }
@@ -46,7 +46,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        conn.Execute("delete from law_enforcement where id=@id;", id);
+        conn.Execute("delete from law_enforcement where id=@id;", new { id });
       }
     }
   }

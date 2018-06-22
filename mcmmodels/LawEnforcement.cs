@@ -28,17 +28,17 @@ namespace mcmmodels
       private set { LoadProperty(IdProperty, value); }
     }
 
-    public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(c => c.Name);
-    public string Name
+    public static readonly PropertyInfo<string> AgencyProperty = RegisterProperty<string>(c => c.Agency);
+    public string Agency
     {
-      get { return GetProperty(NameProperty); }
-      private set { LoadProperty(NameProperty, value); }
+      get { return GetProperty(AgencyProperty); }
+      private set { LoadProperty(AgencyProperty, value); }
     }
 
-    private void Child_Fetch(int id, string name)
+    private void Child_Fetch(int id, string agency)
     {
       Id = id;
-      Name = name;
+      Agency = agency;
     }
   }
 }
