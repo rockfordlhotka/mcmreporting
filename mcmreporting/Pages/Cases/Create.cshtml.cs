@@ -15,6 +15,8 @@ namespace mcmreporting.Pages.Cases
   {
     [BindProperty]
     public CaseEdit CaseEdit { get; set; }
+    [BindProperty]
+    public List<RaceEthnicityItem> RaceEthnicityList { get; set; } = new List<RaceEthnicityItem>();
 
     public Counties CountyList { get; set; }
     public Schools SchoolList { get; set; }
@@ -24,6 +26,7 @@ namespace mcmreporting.Pages.Cases
     public ReferralTypes ReferralTypeList { get; set; }
     public CaseTypes CaseTypeList { get; set; }
     public CaseStatusTypes CaseStatusList { get; set; }
+    public GenderTypes GenderTypeList { get; set; }
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -35,6 +38,11 @@ namespace mcmreporting.Pages.Cases
       ReferralTypeList = await DataPortal.FetchAsync<ReferralTypes>();
       CaseTypeList = await DataPortal.FetchAsync<CaseTypes>();
       CaseStatusList = await DataPortal.FetchAsync<CaseStatusTypes>();
+      GenderTypeList = await DataPortal.FetchAsync<GenderTypes>();
+
+      foreach (var item in EthnicityList)
+        RaceEthnicityList.Add(
+          new RaceEthnicityItem { Id = item.Id, Name = item.Name });
 
       return Page();
     }
@@ -46,6 +54,8 @@ namespace mcmreporting.Pages.Cases
       {
         return Page();
       }
+
+      CaseEdit.RaceEthnicityList.AddRange(RaceEthnicityList.Where(item => item.IsChecked).Select(item => item.Id).ToList());
 
       CaseEdit = await CaseEdit.SaveAsync();
 

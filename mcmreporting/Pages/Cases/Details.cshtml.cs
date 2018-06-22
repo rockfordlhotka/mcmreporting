@@ -14,6 +14,8 @@ namespace mcmreporting.Pages.Cases
   public class DetailsModel : PageModel
   {
     public CaseEdit CaseEdit { get; set; }
+    public RaceEthnicities EthnicityList { get; set; }
+    public string RaceEthnicityText { get; set; }
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -28,6 +30,14 @@ namespace mcmreporting.Pages.Cases
       {
         return NotFound();
       }
+
+      EthnicityList = await DataPortal.FetchAsync<RaceEthnicities>();
+
+      foreach (var item in CaseEdit.RaceEthnicityList)
+        RaceEthnicityText += EthnicityList.Where(r=>r.Id == item).Select(r => r.Name + ", ").First();
+      if (!string.IsNullOrWhiteSpace(RaceEthnicityText))
+        RaceEthnicityText = RaceEthnicityText.Substring(0, RaceEthnicityText.Length - 2);
+
       return Page();
     }
   }

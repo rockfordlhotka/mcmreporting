@@ -27,7 +27,7 @@ namespace mcmmodels.Dal
     {
       using (var conn = Database.GetConnection())
       {
-        var result = conn.Query<CaseDal>(_selectSql).AsList();
+        var result = conn.Query<CaseDal>(_selectSql + " order by mcm_number desc").AsList();
         return result;
       }
     }
@@ -41,8 +41,9 @@ namespace mcmmodels.Dal
       }
     }
 
-    public int Insert(CaseDal casedata)
+    public int Insert(CaseDal casedata, List<int> raceEthnicityList)
     {
+      var newId = -1;
       if (casedata.CountyId <= 0)
         casedata.CountyId = 177;
       if (casedata.SchoolId <= 0)
@@ -55,11 +56,14 @@ namespace mcmmodels.Dal
 
         conn.Execute(_insertSql, casedata);
         var result = conn.Query<CaseDal>(_selectSql + " where mcm_number=@number;", new { number = casedata.MCMNumber }).FirstOrDefault();
-        return result == null ? -1 : result.Id;
+        newId = result == null ? -1 : result.Id;
       }
+      if (newId > -1)
+        SaveRaceEthnicity(newId, raceEthnicityList);
+      return newId;
     }
 
-    public void Update(CaseDal casedata)
+    public void Update(CaseDal casedata, List<int> raceEthnicityList)
     {
       if (casedata.CountyId <= 0)
         casedata.CountyId = 177;
@@ -69,13 +73,52 @@ namespace mcmmodels.Dal
       {
         conn.Execute(_updateSql, casedata);
       }
+      SaveRaceEthnicity(casedata.Id, raceEthnicityList);
     }
 
     public void Delete(int id)
     {
+      DeleteRaceEthnicity(id);
       using (var conn = Database.GetConnection())
       {
         conn.Execute("delete from case_data where id=@id;", new { id });
+      }
+    }
+
+    public List<int> GetRaceEthnicity(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        IEnumerable<int> result = null;
+        try
+        {
+          result = conn.Query<int>("select race_ethnicity_id from case_race_ethnicity where case_data_id=@caseId", new { caseId });
+        }
+        catch (Exception)
+        {
+          return null;
+        }
+        return result.ToList();
+      }
+    }
+
+    public void SaveRaceEthnicity(int caseId, List<int> dataList)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        DeleteRaceEthnicity(caseId);
+        foreach (var item in dataList)
+        {
+          conn.Execute("insert into case_race_ethnicity (case_data_id, race_ethnicity_id) values (@caseId, @raceId)", new { caseId, raceId = item });
+        }
+      }
+    }
+
+    public void DeleteRaceEthnicity(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        conn.Execute("delete from case_race_ethnicity where case_data_id=@caseId;", new { caseId });
       }
     }
   }

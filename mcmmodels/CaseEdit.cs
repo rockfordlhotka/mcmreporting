@@ -1,12 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Csla;
+using Csla.Core;
 
 namespace mcmmodels
 {
   [Serializable]
   public class CaseEdit : BusinessBase<CaseEdit>
   {
+    public CaseEdit()
+    {
+      RaceEthnicityList = new MobileList<int>();
+    }
+
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
     public int Id
     {
@@ -163,6 +169,13 @@ namespace mcmmodels
       private set { LoadProperty(SchoolProperty, value); }
     }
 
+    public static readonly PropertyInfo<MobileList<int>> RaceEthnicityListProperty = RegisterProperty<MobileList<int>>(c => c.RaceEthnicityList);
+    public MobileList<int> RaceEthnicityList
+    {
+      get { return GetProperty(RaceEthnicityListProperty); }
+      private set { LoadProperty(RaceEthnicityListProperty, value); }
+    }
+
     private void DataPortal_Fetch(int id)
     {
       var dal = new Dal.Cases();
@@ -170,6 +183,10 @@ namespace mcmmodels
       using (BypassPropertyChecks)
       {
         Csla.Data.DataMapper.Map(data, this);
+        RaceEthnicityList.Clear();
+        var raceEthnicityList = dal.GetRaceEthnicity(id);
+        if (raceEthnicityList != null)
+          RaceEthnicityList.AddRange(raceEthnicityList);
       }
 
       var cdal = new Dal.Counties();
@@ -187,14 +204,17 @@ namespace mcmmodels
         School = "n/a";
     }
 
+    private static readonly string[] ignoreList = new string[] { "RaceEthnicityList", "County", "School", "Parent", "BrokenRulesCollection",
+      "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" };
+
     protected override void DataPortal_Insert()
     {
       var dal = new Dal.Cases();
       using (BypassPropertyChecks)
       {
         var data = new Dal.CaseDal();
-        Csla.Data.DataMapper.Map(this, data, new string[] { "County", "School", "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
-        var newId = dal.Insert(data);
+        Csla.Data.DataMapper.Map(this, data, ignoreList);
+        var newId = dal.Insert(data, RaceEthnicityList);
         Id = newId;
       }
     }
@@ -205,8 +225,8 @@ namespace mcmmodels
       using (BypassPropertyChecks)
       {
         var data = new Dal.CaseDal();
-        Csla.Data.DataMapper.Map(this, data, new string[] { "County", "School", "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
-        dal.Update(data);
+        Csla.Data.DataMapper.Map(this, data, ignoreList);
+        dal.Update(data, RaceEthnicityList);
       }
     }
 
