@@ -23,29 +23,29 @@ namespace mcmmodels
       set { SetProperty(MCMNumberProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> IntakeDateProperty = RegisterProperty<DateTimeOffset>(c => c.IntakeDate);
+    public static readonly PropertyInfo<DateTime> IntakeDateProperty = RegisterProperty<DateTime>(c => c.IntakeDate);
     [Display(Name = "Intake date")]
     [DataType(DataType.Date)]
     [Required]
-    public DateTimeOffset IntakeDate
+    public DateTime IntakeDate
     {
       get { return GetProperty(IntakeDateProperty); }
       set { SetProperty(IntakeDateProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> LastSeenProperty = RegisterProperty<DateTimeOffset>(c => c.LastSeen);
+    public static readonly PropertyInfo<DateTime> LastSeenProperty = RegisterProperty<DateTime>(c => c.LastSeen);
     [Display(Name = "Last seen date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset LastSeen
+    public DateTime LastSeen
     {
       get { return GetProperty(LastSeenProperty); }
       set { SetProperty(LastSeenProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> ReportedMissingProperty = RegisterProperty<DateTimeOffset>(c => c.ReportedMissing);
+    public static readonly PropertyInfo<DateTime> ReportedMissingProperty = RegisterProperty<DateTime>(c => c.ReportedMissing);
     [Display(Name = "Reported missing date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset ReportedMissing
+    public DateTime ReportedMissing
     {
       get { return GetProperty(ReportedMissingProperty); }
       set { SetProperty(ReportedMissingProperty, value); }
@@ -117,10 +117,10 @@ namespace mcmmodels
       set { SetProperty(DispositionProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> CloseDateProperty = RegisterProperty<DateTimeOffset>(c => c.CloseDate);
+    public static readonly PropertyInfo<DateTime> CloseDateProperty = RegisterProperty<DateTime>(c => c.CloseDate);
     [Display(Name = "Close date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset CloseDate
+    public DateTime CloseDate
     {
       get { return GetProperty(CloseDateProperty); }
       set { SetProperty(CloseDateProperty, value); }
@@ -193,7 +193,7 @@ namespace mcmmodels
       using (BypassPropertyChecks)
       {
         var data = new Dal.CaseDal();
-        Csla.Data.DataMapper.Map(this, data, new string[] { "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
+        Csla.Data.DataMapper.Map(this, data, new string[] { "County", "School", "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
         var newId = dal.Insert(data);
         Id = newId;
       }
@@ -205,7 +205,7 @@ namespace mcmmodels
       using (BypassPropertyChecks)
       {
         var data = new Dal.CaseDal();
-        Csla.Data.DataMapper.Map(this, data, new string[] { "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
+        Csla.Data.DataMapper.Map(this, data, new string[] { "County", "School", "Parent", "BrokenRulesCollection", "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" });
         dal.Update(data);
       }
     }

@@ -84,9 +84,9 @@ namespace mcmmodels.Dal
   {
     public int Id { get; set; }
     public string MCMNumber { get; set; }
-    public DateTimeOffset IntakeDate { get; set; }
-    public DateTimeOffset LastSeen { get; set; }
-    public DateTimeOffset ReportedMissing { get; set; }
+    public DateTime IntakeDate { get; set; }
+    public DateTime LastSeen { get; set; }
+    public DateTime ReportedMissing { get; set; }
     public int Age { get; set; }
     public string Gender { get; set; }
     public int PeopleServed { get; set; }
@@ -96,7 +96,7 @@ namespace mcmmodels.Dal
     public string StartCaseType { get; set; }
     public string EndCaseType { get; set; }
     public string Disposition { get; set; }
-    public DateTimeOffset CloseDate { get; set; }
+    public DateTime CloseDate { get; set; }
     public string ReferralType { get; set; }
     public string CaseStatus {get; set; }
     public int SchoolId { get; set; }

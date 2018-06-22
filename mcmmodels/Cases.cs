@@ -36,28 +36,28 @@ namespace mcmmodels
       private set { LoadProperty(MCMNumberProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> IntakeDateProperty = RegisterProperty<DateTimeOffset>(c => c.IntakeDate);
+    public static readonly PropertyInfo<DateTime> IntakeDateProperty = RegisterProperty<DateTime>(c => c.IntakeDate);
     [Display(Name = "Intake date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset IntakeDate
+    public DateTime IntakeDate
     {
       get { return GetProperty(IntakeDateProperty); }
       private set { LoadProperty(IntakeDateProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> LastSeenProperty = RegisterProperty<DateTimeOffset>(c => c.LastSeen);
+    public static readonly PropertyInfo<DateTime> LastSeenProperty = RegisterProperty<DateTime>(c => c.LastSeen);
     [Display(Name = "Last seen date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset LastSeen
+    public DateTime LastSeen
     {
       get { return GetProperty(LastSeenProperty); }
       private set { LoadProperty(LastSeenProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> ReportedMissingProperty = RegisterProperty<DateTimeOffset>(c => c.ReportedMissing);
+    public static readonly PropertyInfo<DateTime> ReportedMissingProperty = RegisterProperty<DateTime>(c => c.ReportedMissing);
     [Display(Name = "Reported missing date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset ReportedMissing
+    public DateTime ReportedMissing
     {
       get { return GetProperty(ReportedMissingProperty); }
       private set { LoadProperty(ReportedMissingProperty, value); }
@@ -143,10 +143,10 @@ namespace mcmmodels
       private set { LoadProperty(DispositionProperty, value); }
     }
 
-    public static readonly PropertyInfo<DateTimeOffset> CloseDateProperty = RegisterProperty<DateTimeOffset>(c => c.CloseDate);
+    public static readonly PropertyInfo<DateTime> CloseDateProperty = RegisterProperty<DateTime>(c => c.CloseDate);
     [Display(Name = "Close date")]
     [DataType(DataType.Date)]
-    public DateTimeOffset CloseDate
+    public DateTime CloseDate
     {
       get { return GetProperty(CloseDateProperty); }
       private set { LoadProperty(CloseDateProperty, value); }
