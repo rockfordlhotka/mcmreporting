@@ -12,6 +12,7 @@ namespace mcmmodels
     {
       var dal = new Dal.LawEnforcement();
       IsReadOnly = false;
+      Add(DataPortal.FetchChild<LawEnforcementInfo>(0, "none"));
       foreach (var item in dal.Get())
         Add(DataPortal.FetchChild<LawEnforcementInfo>(item.Id, item.Agency));
       IsReadOnly = true;
@@ -33,6 +34,12 @@ namespace mcmmodels
     {
       get { return GetProperty(AgencyProperty); }
       private set { LoadProperty(AgencyProperty, value); }
+    }
+
+    private void Child_Create(int id, string agency)
+    {
+      Id = id;
+      Agency = agency;
     }
 
     private void Child_Fetch(int id, string agency)

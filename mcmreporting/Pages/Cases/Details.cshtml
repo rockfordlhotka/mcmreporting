@@ -52,6 +52,25 @@
   </dl>
   <dl class="dl-horizontal">
     <dt>
+      Vulnerabilities
+    </dt>
+    <dd>
+      @Model.VulnerabilityText
+    </dd>
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
+      Jurisdictional Denials
+    </dt>
+    @foreach (var item in Model.Agencies)
+    {
+      <dd>
+        @item.AgencyName - @item.DenialText
+      </dd>
+    }
+  </dl>
+  <dl class="dl-horizontal">
+    <dt>
       @Html.DisplayNameFor(model => model.CaseEdit.LastSeen)
     </dt>
     <dd>

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Csla;
 using Csla.Core;
 
@@ -11,6 +13,8 @@ namespace mcmmodels
     public CaseEdit()
     {
       RaceEthnicityList = new MobileList<int>();
+      VulnerabilityList = new MobileList<int>();
+      CaseLawEnforcementList = new CaseLawEnforcementList();
     }
 
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
@@ -176,6 +180,20 @@ namespace mcmmodels
       private set { LoadProperty(RaceEthnicityListProperty, value); }
     }
 
+    public static readonly PropertyInfo<MobileList<int>> VulnerabilityListProperty = RegisterProperty<MobileList<int>>(c => c.VulnerabilityList);
+    public MobileList<int> VulnerabilityList
+    {
+      get { return GetProperty(VulnerabilityListProperty); }
+      private set { LoadProperty(VulnerabilityListProperty, value); }
+    }
+
+    public static readonly PropertyInfo<CaseLawEnforcementList> CaseLawEnforcementListProperty = RegisterProperty<CaseLawEnforcementList>(c => c.CaseLawEnforcementList);
+    public CaseLawEnforcementList CaseLawEnforcementList
+    {
+      get { return GetProperty(CaseLawEnforcementListProperty); }
+      private set { LoadProperty(CaseLawEnforcementListProperty, value); }
+    }
+
     private void DataPortal_Fetch(int id)
     {
       var dal = new Dal.Cases();
@@ -183,10 +201,9 @@ namespace mcmmodels
       using (BypassPropertyChecks)
       {
         Csla.Data.DataMapper.Map(data, this);
-        RaceEthnicityList.Clear();
-        var raceEthnicityList = dal.GetRaceEthnicity(id);
-        if (raceEthnicityList != null)
-          RaceEthnicityList.AddRange(raceEthnicityList);
+        GetRaceEthnicityList(id, dal);
+        GetVulnerabilityList(id, dal);
+        GetCaseLawEnforcementList(id, dal);
       }
 
       var cdal = new Dal.Counties();
@@ -204,7 +221,31 @@ namespace mcmmodels
         School = "n/a";
     }
 
-    private static readonly string[] ignoreList = new string[] { "RaceEthnicityList", "County", "School", "Parent", "BrokenRulesCollection",
+    private void GetCaseLawEnforcementList(int id, Dal.Cases dal)
+    {
+      CaseLawEnforcementList.Clear();
+      var caseLawEnforcementList = dal.GetCaseLawEnforcementList(id);
+      if (caseLawEnforcementList != null)
+        CaseLawEnforcementList.AddRange(caseLawEnforcementList.Select(r => new NameValueListBase<int, bool>.NameValuePair(r.AgencyId, r.Denial)));
+    }
+
+    private void GetVulnerabilityList(int id, Dal.Cases dal)
+    {
+      VulnerabilityList.Clear();
+      var vulnerabilityList = dal.GetVulnerabilities(id);
+      if (vulnerabilityList != null)
+        VulnerabilityList.AddRange(vulnerabilityList);
+    }
+
+    private void GetRaceEthnicityList(int id, Dal.Cases dal)
+    {
+      RaceEthnicityList.Clear();
+      var raceEthnicityList = dal.GetRaceEthnicity(id);
+      if (raceEthnicityList != null)
+        RaceEthnicityList.AddRange(raceEthnicityList);
+    }
+
+    private static readonly string[] ignoreList = new string[] { "RaceEthnicityList", "VulnerabilityList", "CaseLawEnforcementList", "County", "School", "Parent", "BrokenRulesCollection",
       "IsValid", "IsSelfValid", "IsNew", "IsDirty", "IsDeleted", "IsSelfDirty", "IsBusy", "IsSelfBusy", "IsSavable", "IsChild" };
 
     protected override void DataPortal_Insert()
@@ -214,7 +255,7 @@ namespace mcmmodels
       {
         var data = new Dal.CaseDal();
         Csla.Data.DataMapper.Map(this, data, ignoreList);
-        var newId = dal.Insert(data, RaceEthnicityList);
+        var newId = dal.Insert(data, RaceEthnicityList, VulnerabilityList, CaseLawEnforcementList.Select(r => new Dal.CaseLawEnforcementDal { AgencyId = r.Key, Denial = r.Value }).ToList());
         Id = newId;
       }
     }
@@ -226,7 +267,7 @@ namespace mcmmodels
       {
         var data = new Dal.CaseDal();
         Csla.Data.DataMapper.Map(this, data, ignoreList);
-        dal.Update(data, RaceEthnicityList);
+        dal.Update(data, RaceEthnicityList, VulnerabilityList, CaseLawEnforcementList.Select(r => new Dal.CaseLawEnforcementDal { AgencyId = r.Key, Denial = r.Value }).ToList());
       }
     }
 

@@ -32,7 +32,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.County" class="control-label"></label><br />
         <select asp-for="CaseEdit.CountyId">
-          @foreach (var item in Model.CountyList)
+          @foreach (var item in Model.Counties)
           {
             <option value="@item.Id" label="@item.Name" />
           }
@@ -42,7 +42,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.State" class="control-label"></label><br />
         <select asp-for="CaseEdit.State">
-          @foreach (var item in Model.StateList)
+          @foreach (var item in Model.States)
           {
             <option value="@item.Name" label="@item.Name" />
           }
@@ -52,7 +52,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.School" class="control-label"></label><br />
         <select asp-for="CaseEdit.SchoolId">
-          @foreach (var item in Model.SchoolList)
+          @foreach (var item in Model.Schools)
           {
             <option value="@item.Id" label="@item.Name" />
           }
@@ -62,7 +62,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.ReferralType" class="control-label"></label><br />
         <select asp-for="CaseEdit.ReferralType">
-          @foreach (var item in Model.ReferralTypeList)
+          @foreach (var item in Model.ReferralType)
           {
             <option value="@item" label="@item" />
           }
@@ -77,7 +77,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.Gender" class="control-label"></label><br />
         <select asp-for="CaseEdit.Gender">
-          @foreach (var item in Model.GenderTypeList)
+          @foreach (var item in Model.GenderTypes)
           {
             <option value="@item" label="@item" />
           }
@@ -87,13 +87,47 @@
       <div class="form-group">
         <label class="control-label">Race/Ethnicity</label>
         <ul>
-          @for (int i = 0; i < Model.RaceEthnicityList.Count - 1; i++)
+          @for (int i = 0; i < Model.RaceEthnicityList.Count; i++)
+          {
+            <li>
+              <input type="checkbox" asp-for="RaceEthnicityList[i].IsChecked" />
+              <label asp-for="RaceEthnicityList[i].Id" class="control-label">@Model.RaceEthnicityList[i].Name</label>
+              <input asp-for="RaceEthnicityList[i].Id" type="hidden" />
+              <input asp-for="RaceEthnicityList[i].Name" type="hidden" />
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Vulnerabilities</label>
+        <ul>
+          @for (int i = 0; i < Model.VulnerabilityList.Count; i++)
+          {
+            <li>
+              <input type="checkbox" asp-for="VulnerabilityList[i].IsChecked" />
+              <label asp-for="VulnerabilityList[i].Id" class="control-label">@Model.VulnerabilityList[i].Name</label>
+              <input asp-for="VulnerabilityList[i].Id" type="hidden" />
+              <input asp-for="VulnerabilityList[i].Name" type="hidden" />
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Law Enforcement Denial</label>
+        <ul>
+          @for (int i = 0; i < Model.CaseLawEnforcementItemList.Count; i++)
           {
           <li>
-            <input type="checkbox" asp-for="RaceEthnicityList[i].IsChecked" />
-            <label asp-for="RaceEthnicityList[i].Id" class="control-label">@Model.RaceEthnicityList[i].Name</label>
-            <input asp-for="RaceEthnicityList[i].Id" type="hidden" />
-            <input asp-for="RaceEthnicityList[i].Name" type="hidden" />
+            <select asp-for="CaseLawEnforcementItemList[i].AgencyId">
+              @foreach (var item in Model.LawEnforcementAgencies)
+              {
+                <option value="@item.Id" label="@item.Agency" />
+              }
+            </select><br />
+            <input type="checkbox" asp-for="CaseLawEnforcementItemList[i].Denial" />
+            <input asp-for="CaseLawEnforcementItemList[i].AgencyId" type="hidden" />
+            <input asp-for="CaseLawEnforcementItemList[i].Denial" type="hidden" />
+            <label class="control-label">Denial</label>
           </li>
           }
         </ul>
@@ -116,7 +150,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.StartCaseType" class="control-label"></label><br />
         <select asp-for="CaseEdit.StartCaseType">
-          @foreach (var item in Model.CaseTypeList)
+          @foreach (var item in Model.CaseTypes)
           {
             <option value="@item" label="@item" />
           }
@@ -126,7 +160,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.EndCaseType" class="control-label"></label><br />
         <select asp-for="CaseEdit.EndCaseType">
-          @foreach (var item in Model.CaseTypeList)
+          @foreach (var item in Model.CaseTypes)
           {
             <option value="@item" label="@item" />
           }
@@ -136,7 +170,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.Disposition" class="control-label"></label><br />
         <select asp-for="CaseEdit.Disposition">
-          @foreach (var item in Model.DispositionTypeList)
+          @foreach (var item in Model.DispositionTypes)
           {
             <option value="@item" label="@item" />
           }
@@ -151,7 +185,7 @@
       <div class="form-group">
         <label asp-for="CaseEdit.CaseStatus" class="control-label"></label><br />
         <select asp-for="CaseEdit.CaseStatus">
-          @foreach (var item in Model.CaseStatusList)
+          @foreach (var item in Model.CaseStatuses)
           {
             <option value="@item" label="@item" />
           }

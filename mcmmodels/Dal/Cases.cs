@@ -41,7 +41,7 @@ namespace mcmmodels.Dal
       }
     }
 
-    public int Insert(CaseDal casedata, List<int> raceEthnicityList)
+    public int Insert(CaseDal casedata, List<int> raceEthnicityList, List<int> vulnerabilitiesList, List<CaseLawEnforcementDal> lawEnforcementList)
     {
       var newId = -1;
       if (casedata.CountyId <= 0)
@@ -59,11 +59,15 @@ namespace mcmmodels.Dal
         newId = result == null ? -1 : result.Id;
       }
       if (newId > -1)
+      {
         SaveRaceEthnicity(newId, raceEthnicityList);
+        SaveVulnerabilities(newId, vulnerabilitiesList);
+        SaveCaseLawEnforcementList(newId, lawEnforcementList);
+      }
       return newId;
     }
 
-    public void Update(CaseDal casedata, List<int> raceEthnicityList)
+    public void Update(CaseDal casedata, List<int> raceEthnicityList, List<int> vulnerabilitiesList, List<CaseLawEnforcementDal> lawEnforcementList)
     {
       if (casedata.CountyId <= 0)
         casedata.CountyId = 177;
@@ -74,11 +78,15 @@ namespace mcmmodels.Dal
         conn.Execute(_updateSql, casedata);
       }
       SaveRaceEthnicity(casedata.Id, raceEthnicityList);
+      SaveVulnerabilities(casedata.Id, vulnerabilitiesList);
+      SaveCaseLawEnforcementList(casedata.Id, lawEnforcementList);
     }
 
     public void Delete(int id)
     {
       DeleteRaceEthnicity(id);
+      DeleteVulnerabilities(id);
+      DeleteCaseLawEnforcementList(id);
       using (var conn = Database.GetConnection())
       {
         conn.Execute("delete from case_data where id=@id;", new { id });
@@ -121,6 +129,80 @@ namespace mcmmodels.Dal
         conn.Execute("delete from case_race_ethnicity where case_data_id=@caseId;", new { caseId });
       }
     }
+
+    public List<int> GetVulnerabilities(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        IEnumerable<int> result = null;
+        try
+        {
+          result = conn.Query<int>("select vulnerabilities_id from case_vulnerabilities where case_data_id=@caseId", new { caseId });
+        }
+        catch (Exception)
+        {
+          return null;
+        }
+        return result.ToList();
+      }
+    }
+
+    public void SaveVulnerabilities(int caseId, List<int> dataList)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        DeleteVulnerabilities(caseId);
+        foreach (var item in dataList)
+        {
+          conn.Execute("insert into case_vulnerabilities (case_data_id, vulnerabilities_id) values (@caseId, @itemId)", new { caseId, itemId = item });
+        }
+      }
+    }
+
+    public void DeleteVulnerabilities(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        conn.Execute("delete from case_vulnerabilities where case_data_id=@caseId;", new { caseId });
+      }
+    }
+
+    public List<CaseLawEnforcementDal> GetCaseLawEnforcementList(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        IEnumerable<CaseLawEnforcementDal> result = null;
+        try
+        {
+          result = conn.Query<CaseLawEnforcementDal>("select law_enforcement_id as AgencyId, jurisdictional_denial as Denial from case_lawenforcement_denial where case_data_id=@caseId", new { caseId });
+        }
+        catch (Exception)
+        {
+          return null;
+        }
+        return result.ToList();
+      }
+    }
+
+    public void SaveCaseLawEnforcementList(int caseId, List<CaseLawEnforcementDal> dataList)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        DeleteCaseLawEnforcementList(caseId);
+        foreach (var item in dataList)
+        {
+          conn.Execute("insert into case_lawenforcement_denial (case_data_id, law_enforcement_id, jurisdictional_denial) values (@caseId, @itemId, @denial)", new { caseId, itemId = item.AgencyId, denial = item.Denial });
+        }
+      }
+    }
+
+    public void DeleteCaseLawEnforcementList(int caseId)
+    {
+      using (var conn = Database.GetConnection())
+      {
+        conn.Execute("delete from case_lawenforcement_denial where case_data_id=@caseId;", new { caseId });
+      }
+    }
   }
 
   public class CaseDal
@@ -143,5 +225,11 @@ namespace mcmmodels.Dal
     public string ReferralType { get; set; }
     public string CaseStatus {get; set; }
     public int SchoolId { get; set; }
+  }
+
+  public class CaseLawEnforcementDal
+  {
+    public int AgencyId { get; set; }
+    public bool Denial { get; set; }
   }
 }
