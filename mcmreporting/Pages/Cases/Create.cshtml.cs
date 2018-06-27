@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using mcmreporting.Models;
 using mcmmodels;
 using Csla;
+using System.ComponentModel.DataAnnotations;
 
 namespace mcmreporting.Pages.Cases
 {
@@ -77,6 +78,103 @@ namespace mcmreporting.Pages.Cases
 
       return RedirectToPage("./Index");
     }
+
+    public class CaseDisplayData
+    {
+      [Display(Name = "Name of missing person")]
+      public string Name { get; set; }
+      [Display(Name = "Location last seen")]
+      public string LocationLastSeenCrossSt { get; set; }
+      [Display(Name = "Family members searching")]
+      public string FamilyMembersInvolvedInSearch { get; set; }
+      public string Height { get; set; }
+      public string Weight { get; set; }
+      [Display(Name = "Hair color")]
+      public string HairColor { get; set; }
+      [Display(Name = "Hair style")]
+      public string HairStyle { get; set; }
+      [Display(Name = "Eye color")]
+      public string EyeColor { get; set; }
+      [Display(Name = "Facial hair")]
+      public string FacialHair { get; set; }
+      [Display(Name = "Eyebrow features")]
+      public string EyebrowFeatures { get; set; }
+      [Display(Name = "Glasses or contacts")]
+      public string GlassOrContacts { get; set; }
+      [Display(Name = "Tattoos")]
+      public string Tattoos { get; set; }
+      [Display(Name = "Dental characteristics")]
+      public string DentalCharacteristics { get; set; }
+      [Display(Name = "Scars/Birthmarks")]
+      public string ScarsOrBirthmarks { get; set; }
+      [Display(Name = "Characteristics notes")]
+      public string CharacteristicsNotes { get; set; }
+      [Display(Name = "With others")]
+      public string WithOthers { get; set; }
+      [Display(Name = "High risk activities")]
+      public string HighRisk { get; set; }
+      [Display(Name = "Disturbing situation")]
+      public string DisturbingSituation { get; set; }
+      [Display(Name = "Specific questions")]
+      public string SpecificQuestions { get; set; }
+      [Display(Name = "Jacket/Coat")]
+      public string JacketCoat { get; set; }
+      [Display(Name = "Shirt/Blouse")]
+      public string ShirtBlouse { get; set; }
+      [Display(Name = "Pants/Skirt")]
+      public string PantsSkirt { get; set; }
+      [Display(Name = "Jewelry")]
+      public string Jewelry { get; set; }
+      [Display(Name = "Backpack/Purse")]
+      public string BackpackPurse { get; set; }
+      [Display(Name = "Hat/Headwear")]
+      public string HatOrHeadwear { get; set; }
+      [Display(Name = "Other clothing")]
+      public string OtherClothing { get; set; }
+      [Display(Name = "Vehicle year")]
+      public string VehicleYear { get; set; }
+      [Display(Name = "Vehicle make")]
+      public string VehicleMake { get; set; }
+      [Display(Name = "Vehicle model")]
+      public string VehicleModel { get; set; }
+      [Display(Name = "Vehicle color")]
+      public string VehicleColor { get; set; }
+      [Display(Name = "Vehicle license")]
+      public string VehicleLicense { get; set; }
+      [Display(Name = "Photo available")]
+      public bool PhotoAvailable { get; set; }
+      [Display(Name = "Left before")]
+      public string LeftBefore { get; set; }
+      [Display(Name = "Previously found")]
+      public string PreviouslyFound { get; set; }
+      [Display(Name = "Known companions")]
+      public string KnownCompanions { get; set; }
+      [Display(Name = "Disability/Mental problems")]
+      public string DisabilityMental { get; set; }
+      [Display(Name = "Life threatening conditions")]
+      public string LifeThreatening { get; set; }
+      public string Medications { get; set; }
+      public string Abuse { get; set; }
+      [Display(Name = "Other history")]
+      public string OtherHistory { get; set; }
+      [Display(Name = "Name")]
+      public string PRAName { get; set; }
+      [Display(Name = "Street address")]
+      public string PRAStreetAddress { get; set; }
+      [Display(Name = "City")]
+      public string PRACity { get; set; }
+      [Display(Name = "State")]
+      public string PRAState { get; set; }
+      [Display(Name = "Zipcode")]
+      public string PRAZipCode { get; set; }
+      [Display(Name = "Home phone")]
+      public string PRAHomePhone { get; set; }
+      [Display(Name = "Cell phone")]
+      public string PRACellPhone { get; set; }
+      [Display(Name = "EMail address")]
+      public string PRAEmail { get; set; }
+    }
+
     public class RaceEthnicityItem
     {
       public int Id { get; set; }
@@ -95,6 +193,10 @@ namespace mcmreporting.Pages.Cases
     {
       public int AgencyId { get; set; }
       public bool Denial { get; set; }
+      public string CaseNumber { get; set; }
+      public string LeoName { get; set; }
+      public string LeoPhoneNumber { get; set; }
+      public string LeoStreetAddress { get; set; }
     }
   }
 }
